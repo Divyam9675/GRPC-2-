@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package Product;
+
+option go_package = "productpb";
+
+message Product{
+
+    string id = 1;
+    string developed_by = 2;
+    string title = 3;
+    string content = 4;
+    string budget = 5;
+}
+
+message CreateProductRequest {
+    Product product = 1;
+}
+
+message CreateProductResponse {
+    Product product = 1; // will have a Product id
+}
+
+
+message ReadProductRequest{
+
+    string Product_id = 1;
+
+}
+
+message ReadProductResponse{
+
+    Product product = 1; 
+
+}
+
+message UpdateProductRequest {
+    Product product = 1;
+}
+
+message UpdateProductResponse {
+    Product product = 1;
+}
+
+message DeleteProductRequest {
+    string product_id = 1;
+}
+
+message DeleteProductResponse {
+    string product_id = 1;
+}
+
+message ListProductRequest {
+
+}
+
+message ListProductResponse {
+    Product product = 1;
+}
+
+
+
+
+service ProductService{
+
+    rpc CreateBlog (CreateProductRequest) returns (CreateProductResponse);
+    rpc ReadBlog (ReadProductRequest) returns (ReadProductResponse);
+    rpc UpdateBlog (UpdateProductRequest) returns (UpdateProductResponse); // return NOT_FOUND if not found
+    rpc DeleteBlog (DeleteProductRequest) returns (DeleteProductResponse); // return NOT_FOUND if not found
+    rpc ListBlog (ListProductRequest) returns (stream ListProductResponse);
+
+    // Return not found when no data found on that given id
+}
